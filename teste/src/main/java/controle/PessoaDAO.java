@@ -24,11 +24,11 @@ public class PessoaDAO {
 
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				int idFuncionario = rs.getInt("id_funcionario");
+				int idPessoa = rs.getInt("id_Pessoa");
 				String primeiroNome = rs.getString("primeiro_nome");
 
 				Pessoa p = new Pessoa();
-				p.setIdFuncionario(idFuncionario);
+				p.setIdPessoa(idPessoa);
 				p.setPrimeiroNome(primeiroNome);
 
 				pessoas.add(p);
@@ -54,7 +54,7 @@ public class PessoaDAO {
 		try {
 			PreparedStatement ps = con.prepareStatement(query);
 
-			ps.setInt(1, p.getIdFuncionario());
+			ps.setInt(1, p.getIdPessoa());
 			ps.setString(2, p.getPrimeiroNome());
 
 			ps.executeUpdate();
@@ -70,14 +70,43 @@ public class PessoaDAO {
 	public boolean excluir(Pessoa p) {
 		Conexao c = Conexao.getInstacia();
 		Connection con = c.conectar();
-		String query = "DELETE";
+		String query = "DELETE FROM pessoa WHERE id_pessoa = ?";
+		try {
+			PreparedStatement ps = con.prepareStatement(query);
+			ps.setInt(1, p.getIdPessoa());
+			ps.executeUpdate();
+			
+			
+			
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			c.fecharConexao();
+		}
 		return false;
 	}
 	public boolean atualizar(Pessoa p) {
 		Conexao c = Conexao.getInstacia();
 		Connection con = c.conectar();
 		
-		String query = "UPDATE";
+		String query = "UPDATE pessoa SET "
+				+ "primeiro_nome = ? WHERE id_pessoa = ?";
+		try {
+			PreparedStatement ps = con.prepareStatement(query);
+			ps.setString(1, p.getPrimeiroNome());
+			ps.setInt(2, p.getIdPessoa());
+			
+			ps.executeUpdate();
+			
+			
+			
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			c.fecharConexao();
+		}
 		return false;
 	}
 }

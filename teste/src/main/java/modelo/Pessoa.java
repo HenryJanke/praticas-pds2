@@ -3,7 +3,7 @@ package modelo;
 public class Pessoa {
 	
 	private String primeiroNome;
-	private int idFuncionario;
+	private int idPessoa;
 	
 	public String getPrimeiroNome() {
 		return primeiroNome;
@@ -11,12 +11,13 @@ public class Pessoa {
 	public void setPrimeiroNome(String primeiroNome) {
 		this.primeiroNome = primeiroNome;
 	}
-	public int getIdFuncionario() {
-		return idFuncionario;
+	public int getIdPessoa() {
+		return idPessoa;
 	}
-	public void setIdFuncionario(int idFuncionario) {
-		this.idFuncionario = idFuncionario;
+	public void setIdPessoa(int idPessoa) {
+		this.idPessoa = idPessoa;
 	}
+	
 	
 	
 
